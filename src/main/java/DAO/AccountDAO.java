@@ -32,4 +32,24 @@ public class AccountDAO {
         return null;
     }
 
+    public Account viewAccount(String userName, String password){
+        Connection connection = ConnectionUtil.getConnection();
+        try{
+            String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, password);
+
+            preparedStatement.executeUpdate();
+            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
+            if(pkeyResultSet.next()){
+                int generated_account_id = (int) pkeyResultSet.getLong(1);
+                return new Account(generated_account_id, userName, password);
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

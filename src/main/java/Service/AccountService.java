@@ -15,8 +15,14 @@ public class AccountService {
         this.accountDAO = accountDAO;
     }
 
+    // new registration
     public Account addAccount(Account account) {
         return accountDAO.insertAccount(account);
+    }
+
+    // login with existing account
+    public Account existingAccount(String userName, String password) {
+        return accountDAO.viewAccount(userName, password)
     }
     
 }
