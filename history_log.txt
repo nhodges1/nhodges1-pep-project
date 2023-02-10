@@ -1,7 +1,7 @@
-commit eeeb1bdd409927f22d8ca6937b2830253d116c5b
+commit 9d8c1251ed8e6c492b892ec994fb942305f6b2ca
 Author: nhodges1 <hodges27@outlook.com>
-Date:   Fri Feb 10 06:42:25 2023 +0000
+Date:   Fri Feb 10 06:59:27 2023 +0000
 
-    new message controller, dao, and service
+    updated insertMessage DAO
 
- 5 files changed, 88 insertions(+), 37 deletions(-)
+ 3 files changed, 124 insertions(+), 263 deletions(-)
