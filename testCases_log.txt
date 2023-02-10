@@ -33,8 +33,8 @@ Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_E ON PUBLIC.ACCO
 INSERT INTO account (username, password) VALUES (?, ?) [23505-214]
 Method is not allowed for a query. Use execute or executeQuery instead of executeUpdate; SQL statement:
 SELECT * FROM account WHERE username = ? AND password = ? [90001-214]
-[ERROR] Tests run: 7, Failures: 5, Errors: 0, Skipped: 0, Time elapsed: 8.515 s <<< FAILURE! - in AuthIntegrationTest
-[ERROR] AuthIntegrationTest.postRegisterThenPostIncorrectLoginTest  Time elapsed: 2.307 s  <<< FAILURE!
+[ERROR] Tests run: 7, Failures: 5, Errors: 0, Skipped: 0, Time elapsed: 8.519 s <<< FAILURE! - in AuthIntegrationTest
+[ERROR] AuthIntegrationTest.postRegisterThenPostIncorrectLoginTest  Time elapsed: 2.308 s  <<< FAILURE!
 java.lang.AssertionError: expected:<401> but was:<400>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -83,7 +83,7 @@ java.lang.AssertionError: expected:<401> but was:<400>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] AuthIntegrationTest.postRegisterShortPasswordTest  Time elapsed: 1.038 s  <<< FAILURE!
+[ERROR] AuthIntegrationTest.postRegisterShortPasswordTest  Time elapsed: 1.033 s  <<< FAILURE!
 java.lang.AssertionError: expected:<400> but was:<200>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -132,7 +132,7 @@ java.lang.AssertionError: expected:<400> but was:<200>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] AuthIntegrationTest.postLoginEmptyTest  Time elapsed: 1.029 s  <<< FAILURE!
+[ERROR] AuthIntegrationTest.postLoginEmptyTest  Time elapsed: 1.037 s  <<< FAILURE!
 java.lang.AssertionError: expected:<401> but was:<400>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -181,7 +181,7 @@ java.lang.AssertionError: expected:<401> but was:<400>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] AuthIntegrationTest.postRegisterBlankUsernameTest  Time elapsed: 1.028 s  <<< FAILURE!
+[ERROR] AuthIntegrationTest.postRegisterBlankUsernameTest  Time elapsed: 1.027 s  <<< FAILURE!
 java.lang.AssertionError: expected:<400> but was:<200>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -280,21 +280,18 @@ java.lang.AssertionError: expected:<200> but was:<400>
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
 [INFO] Running MessagingIntegrationTest
-[ERROR] Tests run: 20, Failures: 5, Errors: 14, Skipped: 0, Time elapsed: 20.54 s <<< FAILURE! - in MessagingIntegrationTest
-[ERROR] MessagingIntegrationTest.postAccountAndMessageThenGetMessageTest  Time elapsed: 1.011 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+Referential integrity constraint violation: "CONSTRAINT_63: PUBLIC.MESSAGE FOREIGN KEY(POSTED_BY) REFERENCES PUBLIC.ACCOUNT(ACCOUNT_ID) (1)"; SQL statement:
+INSERT INTO message (message_id, posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?, ?) [23506-214]
+Value too long for column "MESSAGE_TEXT CHARACTER VARYING(255)": "'Over 255 characters                 Over 255 characters Over 255 characters Ove... (383)"; SQL statement:
+INSERT INTO message (message_id, posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?, ?) [22001-214]
+[ERROR] Tests run: 20, Failures: 16, Errors: 2, Skipped: 0, Time elapsed: 20.551 s <<< FAILURE! - in MessagingIntegrationTest
+[ERROR] MessagingIntegrationTest.postAccountAndMessageThenGetMessageTest  Time elapsed: 1.009 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.postAccountAndMessageThenGetMessageTest(MessagingIntegrationTest.java:207)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -338,7 +335,7 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.deleteMessageNonExistentMessageTest  Time elapsed: 1.028 s  <<< FAILURE!
+[ERROR] MessagingIntegrationTest.deleteMessageNonExistentMessageTest  Time elapsed: 1.022 s  <<< FAILURE!
 java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:87)
 	at org.junit.Assert.assertTrue(Assert.java:42)
@@ -386,69 +383,13 @@ java.lang.AssertionError
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.postAccountAndBlankMessage  Time elapsed: 1.03 s  <<< FAILURE!
-java.lang.AssertionError: expected:<400> but was:<200>
+[ERROR] MessagingIntegrationTest.patchMessageTest  Time elapsed: 1.03 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
 	at org.junit.Assert.assertEquals(Assert.java:647)
 	at org.junit.Assert.assertEquals(Assert.java:633)
-	at MessagingIntegrationTest.postAccountAndBlankMessage(MessagingIntegrationTest.java:196)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at org.junit.runners.Suite.runChild(Suite.java:128)
-	at org.junit.runners.Suite.runChild(Suite.java:27)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at org.apache.maven.surefire.junitcore.JUnitCore.run(JUnitCore.java:55)
-	at org.apache.maven.surefire.junitcore.JUnitCoreWrapper.createRequestAndRun(JUnitCoreWrapper.java:137)
-	at org.apache.maven.surefire.junitcore.JUnitCoreWrapper.executeEager(JUnitCoreWrapper.java:107)
-	at org.apache.maven.surefire.junitcore.JUnitCoreWrapper.execute(JUnitCoreWrapper.java:83)
-	at org.apache.maven.surefire.junitcore.JUnitCoreWrapper.execute(JUnitCoreWrapper.java:75)
-	at org.apache.maven.surefire.junitcore.JUnitCoreProvider.invoke(JUnitCoreProvider.java:158)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:456)
-	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:169)
-	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
-
-[ERROR] MessagingIntegrationTest.patchMessageTest  Time elapsed: 1.032 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.patchMessageTest(MessagingIntegrationTest.java:465)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -492,20 +433,13 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.postManyUsersAndMessagesThenGetAllMessages  Time elapsed: 1.033 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.postManyUsersAndMessagesThenGetAllMessages  Time elapsed: 1.034 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.postManyAccountsAndMessagesTest(MessagingIntegrationTest.java:254)
 	at MessagingIntegrationTest.postManyUsersAndMessagesThenGetAllMessages(MessagingIntegrationTest.java:298)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -550,20 +484,13 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.postManyAccountsAndMessagesThenGetMessagesByAccountIdTest  Time elapsed: 1.033 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.postManyAccountsAndMessagesThenGetMessagesByAccountIdTest  Time elapsed: 1.034 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.postManyAccountsAndMessagesTest(MessagingIntegrationTest.java:254)
 	at MessagingIntegrationTest.postManyAccountsAndMessagesThenGetMessagesByAccountIdTest(MessagingIntegrationTest.java:349)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -608,20 +535,13 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.deleteMessageTest  Time elapsed: 1.031 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.deleteMessageTest  Time elapsed: 1.032 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.deleteMessageTest(MessagingIntegrationTest.java:404)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -665,7 +585,7 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.postMessageNonExistentAccountTest  Time elapsed: 1.023 s  <<< FAILURE!
+[ERROR] MessagingIntegrationTest.postMessageNonExistentAccountTest  Time elapsed: 1.027 s  <<< FAILURE!
 java.lang.AssertionError: expected:<400> but was:<200>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -714,20 +634,13 @@ java.lang.AssertionError: expected:<400> but was:<200>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.getMessageAfterPatchTest  Time elapsed: 1.029 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.getMessageAfterPatchTest  Time elapsed: 1.03 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.patchMessageTest(MessagingIntegrationTest.java:465)
 	at MessagingIntegrationTest.getMessageAfterPatchTest(MessagingIntegrationTest.java:490)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -772,7 +685,7 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.postAccountAndTooLongMessage  Time elapsed: 1.027 s  <<< FAILURE!
+[ERROR] MessagingIntegrationTest.postAccountAndTooLongMessage  Time elapsed: 1.029 s  <<< FAILURE!
 java.lang.AssertionError: expected:<400> but was:<200>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -821,20 +734,13 @@ java.lang.AssertionError: expected:<400> but was:<200>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.patchMessageTooLongTest  Time elapsed: 1.032 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.patchMessageTooLongTest  Time elapsed: 1.03 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.patchMessageTooLongTest(MessagingIntegrationTest.java:512)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -878,7 +784,7 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.getMessagesByAccountIdEmpty  Time elapsed: 1.023 s  <<< ERROR!
+[ERROR] MessagingIntegrationTest.getMessagesByAccountIdEmpty  Time elapsed: 1.025 s  <<< ERROR!
 com.fasterxml.jackson.core.JsonParseException: 
 Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
  at [Source: (String)"sample text"; line: 1, column: 7]
@@ -934,20 +840,13 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.deletedMessageShouldNotExistTest  Time elapsed: 1.034 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.deletedMessageShouldNotExistTest  Time elapsed: 1.034 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.deleteMessageTest(MessagingIntegrationTest.java:404)
 	at MessagingIntegrationTest.deletedMessageShouldNotExistTest(MessagingIntegrationTest.java:426)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -992,20 +891,13 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.patchMessageBlankTest  Time elapsed: 1.027 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.patchMessageBlankTest  Time elapsed: 1.029 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.patchMessageBlankTest(MessagingIntegrationTest.java:537)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -1049,7 +941,7 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.patchMessageNonExistentMessageTest  Time elapsed: 1.021 s  <<< FAILURE!
+[ERROR] MessagingIntegrationTest.patchMessageNonExistentMessageTest  Time elapsed: 1.024 s  <<< FAILURE!
 java.lang.AssertionError: expected:<400> but was:<200>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -1098,20 +990,13 @@ java.lang.AssertionError: expected:<400> but was:<200>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.postManyAccountsAndMessagesTest  Time elapsed: 1.026 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.postManyAccountsAndMessagesTest  Time elapsed: 1.027 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.postManyAccountsAndMessagesTest(MessagingIntegrationTest.java:254)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -1155,7 +1040,7 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.getAllMessagesEmptyTest  Time elapsed: 1.022 s  <<< ERROR!
+[ERROR] MessagingIntegrationTest.getAllMessagesEmptyTest  Time elapsed: 1.021 s  <<< ERROR!
 com.fasterxml.jackson.core.JsonParseException: 
 Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
  at [Source: (String)"sample text"; line: 1, column: 7]
@@ -1211,20 +1096,13 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.postAccountAndMessageTest  Time elapsed: 1.028 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.postAccountAndMessageTest  Time elapsed: 1.035 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -1267,20 +1145,13 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.postAccountAndMessageAndGetAllMessagesTest  Time elapsed: 1.027 s  <<< ERROR!
-com.fasterxml.jackson.core.JsonParseException: 
-Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2418)
-	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:759)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3032)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2073)
-	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:805)
-	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4784)
-	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4690)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3652)
-	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3620)
-	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:143)
+[ERROR] MessagingIntegrationTest.postAccountAndMessageAndGetAllMessagesTest  Time elapsed: 1.025 s  <<< FAILURE!
+java.lang.AssertionError: expected:<200> but was:<400>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at MessagingIntegrationTest.postAccountAndMessageTest(MessagingIntegrationTest.java:140)
 	at MessagingIntegrationTest.postAccountAndMessageAndGetAllMessagesTest(MessagingIntegrationTest.java:230)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -1334,47 +1205,34 @@ Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object o
 [ERROR]   AuthIntegrationTest.postRegisterThenPostIncorrectLoginTest:207 expected:<401> but was:<400>
 [ERROR]   AuthIntegrationTest.postRegisterThenPostLoginTest:182 expected:<200> but was:<400>
 [ERROR]   MessagingIntegrationTest.deleteMessageNonExistentMessageTest:393
+[ERROR]   MessagingIntegrationTest.deleteMessageTest:404->postAccountAndMessageTest:140 expected:<200> but was:<400>
+[ERROR]   MessagingIntegrationTest.deletedMessageShouldNotExistTest:426->deleteMessageTest:404->postAccountAndMessageTest:140 expected:<200> but was:<400>
+[ERROR]   MessagingIntegrationTest.getMessageAfterPatchTest:490->patchMessageTest:465->postAccountAndMessageTest:140 expected:<200> but was:<400>
+[ERROR]   MessagingIntegrationTest.patchMessageBlankTest:537->postAccountAndMessageTest:140 expected:<200> but was:<400>
 [ERROR]   MessagingIntegrationTest.patchMessageNonExistentMessageTest:454 expected:<400> but was:<200>
-[ERROR]   MessagingIntegrationTest.postAccountAndBlankMessage:196 expected:<400> but was:<200>
+[ERROR]   MessagingIntegrationTest.patchMessageTest:465->postAccountAndMessageTest:140 expected:<200> but was:<400>
+[ERROR]   MessagingIntegrationTest.patchMessageTooLongTest:512->postAccountAndMessageTest:140 expected:<200> but was:<400>
+[ERROR]   MessagingIntegrationTest.postAccountAndMessageAndGetAllMessagesTest:230->postAccountAndMessageTest:140 expected:<200> but was:<400>
+[ERROR]   MessagingIntegrationTest.postAccountAndMessageTest:140 expected:<200> but was:<400>
+[ERROR]   MessagingIntegrationTest.postAccountAndMessageThenGetMessageTest:207->postAccountAndMessageTest:140 expected:<200> but was:<400>
 [ERROR]   MessagingIntegrationTest.postAccountAndTooLongMessage:173 expected:<400> but was:<200>
+[ERROR]   MessagingIntegrationTest.postManyAccountsAndMessagesTest:254->postAccountAndMessageTest:140 expected:<200> but was:<400>
+[ERROR]   MessagingIntegrationTest.postManyAccountsAndMessagesThenGetMessagesByAccountIdTest:349->postManyAccountsAndMessagesTest:254->postAccountAndMessageTest:140 expected:<200> but was:<400>
+[ERROR]   MessagingIntegrationTest.postManyUsersAndMessagesThenGetAllMessages:298->postManyAccountsAndMessagesTest:254->postAccountAndMessageTest:140 expected:<200> but was:<400>
 [ERROR]   MessagingIntegrationTest.postMessageNonExistentAccountTest:95 expected:<400> but was:<200>
 [ERROR] Errors: 
-[ERROR]   MessagingIntegrationTest.deleteMessageTest:404->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.deletedMessageShouldNotExistTest:426->deleteMessageTest:404->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
 [ERROR]   MessagingIntegrationTest.getAllMessagesEmptyTest:72 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.getMessageAfterPatchTest:490->patchMessageTest:465->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
  at [Source: (String)"sample text"; line: 1, column: 7]
 [ERROR]   MessagingIntegrationTest.getMessagesByAccountIdEmpty:335 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
  at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.patchMessageBlankTest:537->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.patchMessageTest:465->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.patchMessageTooLongTest:512->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.postAccountAndMessageAndGetAllMessagesTest:230->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.postAccountAndMessageThenGetMessageTest:207->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.postManyAccountsAndMessagesTest:254->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.postManyAccountsAndMessagesThenGetMessagesByAccountIdTest:349->postManyAccountsAndMessagesTest:254->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
-[ERROR]   MessagingIntegrationTest.postManyUsersAndMessagesThenGetAllMessages:298->postManyAccountsAndMessagesTest:254->postAccountAndMessageTest:143 » JsonParse Unrecognized token 'sample': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
- at [Source: (String)"sample text"; line: 1, column: 7]
 [INFO] 
-[ERROR] Tests run: 27, Failures: 10, Errors: 14, Skipped: 0
+[ERROR] Tests run: 27, Failures: 21, Errors: 2, Skipped: 0
 [INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  32.850 s
-[INFO] Finished at: 2023-02-10T06:08:56Z
+[INFO] Total time:  36.754 s
+[INFO] Finished at: 2023-02-10T06:43:04Z
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M7:test (default-test) on project Challenges: There are test failures.
 [ERROR] 

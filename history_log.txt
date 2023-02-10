@@ -1,7 +1,7 @@
-commit 1fc66bba8cc34b0df3559e007ee6afd9d50a54a7
+commit eeeb1bdd409927f22d8ca6937b2830253d116c5b
 Author: nhodges1 <hodges27@outlook.com>
-Date:   Fri Feb 10 06:08:21 2023 +0000
+Date:   Fri Feb 10 06:42:25 2023 +0000
 
-    loginAcount
+    new message controller, dao, and service
 
- 5 files changed, 48 insertions(+), 56 deletions(-)
+ 5 files changed, 88 insertions(+), 37 deletions(-)
