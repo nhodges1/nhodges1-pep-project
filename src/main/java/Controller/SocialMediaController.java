@@ -34,7 +34,7 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         app.post("/register", this::postRegisterHandler);
         app.post("/login", this::postLoginHandler);
-        app.post("/messages", this::exampleHandler);
+        app.post("/messages", this::postNewMessageHandler);
         app.get("/messages", this::exampleHandler);
         app.get("/messages/{message_id}", this::exampleHandler);
         app.delete("/messages/{message_id}", this::exampleHandler);
@@ -48,6 +48,7 @@ public class SocialMediaController {
      * @param context The Javalin Context object manages information about both the HTTP request and response.
      */
 
+    /** Register a new account handler */
     private void postRegisterHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
@@ -59,6 +60,7 @@ public class SocialMediaController {
         }
     }
 
+    /** Login into existing account handler */
     private void postLoginHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
@@ -68,6 +70,19 @@ public class SocialMediaController {
             ctx.status(400);
         }else{
             ctx.json(mapper.writeValueAsString(loginAccount));
+        }
+    }
+
+    /** Post a new message handler */
+    private void postNewMessageHandler(Context ctx) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Message message = mapper.readValue(ctx.body(), Message.class);
+        
+        Message newMessage = messageService.addMessage(message);
+        if(newMessage==null){
+            ctx.json(mapper.writeValueAsString(newMessage));
+        }else{
+            ctx.status(400);
         }
     }
 
