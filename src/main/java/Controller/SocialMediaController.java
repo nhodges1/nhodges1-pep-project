@@ -63,7 +63,7 @@ public class SocialMediaController {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
         
-        Account loginAccount = accountService.existingAccount(String userName, String password);
+        Account loginAccount = accountService.existingAccount(account);
         if(loginAccount==null){
             ctx.status(400);
         }else{

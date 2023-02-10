@@ -21,8 +21,8 @@ public class AccountService {
     }
 
     // login with existing account
-    public Account existingAccount(String userName, String password) {
-        return accountDAO.viewAccount(userName, password)
+    public Account existingAccount(Account account) {
+        return accountDAO.viewAccount(account);
     }
     
 }
