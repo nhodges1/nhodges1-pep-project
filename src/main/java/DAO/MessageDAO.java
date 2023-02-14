@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class MessageDAO {
 
     public List<Message> getAllMessages() {
         Connection connection = ConnectionUtil.getConnection();
-        List<Message> messages = new List<>();
+        List<Message> messages = new ArrayList<>();
         try {
             String sql = "SELECT * FROM message";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
