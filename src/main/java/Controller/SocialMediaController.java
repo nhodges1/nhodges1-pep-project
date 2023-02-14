@@ -59,6 +59,7 @@ public class SocialMediaController {
             ctx.status(400);
         }else{
             ctx.json(mapper.writeValueAsString(addedAccount));
+            ctx.status(200);
         }
     }
 
@@ -72,6 +73,7 @@ public class SocialMediaController {
             ctx.status(400);
         }else{
             ctx.json(mapper.writeValueAsString(loginAccount));
+            ctx.status(200);
         }
     }
 
@@ -83,6 +85,7 @@ public class SocialMediaController {
         Message newMessage = messageService.addMessage(message);
         if(newMessage==null){
             ctx.json(mapper.writeValueAsString(newMessage));
+            ctx.status(200);
         }else{
             ctx.status(400);
         }

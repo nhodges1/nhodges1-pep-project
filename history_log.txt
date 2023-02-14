@@ -1,7 +1,7 @@
-commit 8f51ff76a6a2a33f86d630daafba6ff1eca3fe9a
+commit 519ba8a95f3aaa2af26b7589051a4e7a13341ab7
 Author: nhodges1 <hodges27@outlook.com>
-Date:   Sun Feb 12 03:43:22 2023 +0000
+Date:   Tue Feb 14 00:33:09 2023 +0000
 
-    insertMessageDAO
+    getAllMessages DAO
 
- 5 files changed, 127 insertions(+), 140 deletions(-)
+ 3 files changed, 41 insertions(+), 48 deletions(-)
