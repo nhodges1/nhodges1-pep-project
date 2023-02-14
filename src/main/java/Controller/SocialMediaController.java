@@ -38,8 +38,8 @@ public class SocialMediaController {
         app.post("/login", this::postLoginHandler);
         app.post("/messages", this::postNewMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
-        // app.get("/messages/{message_id}", this::getMessageByIdHandler);
-        app.delete("/messages/{message_id}", this::exampleHandler);
+        app.get("/messages/{message_id}", this::getMessageByIdHandler);
+        app.delete("/messages/{message_id}", this::deleteMessageByIdHandler);
         app.patch("/messages/{message_id}", this::exampleHandler);
         app.get("/accounts/{account_id}/messages", this::exampleHandler);
         return app;
@@ -98,12 +98,18 @@ public class SocialMediaController {
         ctx.status(200);
     }
 
-    /** private void getMessageByIdHandler(Context ctx){
+    /** Get message by id handler */
+    private void getMessageByIdHandler(Context ctx){
         ctx.json(messageService.getMessagesById(id));
         ctx.status(200);
     }
-    */
 
+    /** Delete message by id handler */
+    private void deleteMessageByIdHandler(Context ctx, int id){
+        ctx.status(200);
+        
+    }
+    
     private void exampleHandler(Context context) {
         context.json("sample text");
     }
