@@ -56,4 +56,13 @@ public class MessageService {
         }
         return null;
     }
+
+    public List<Message> getMessagesByUser() {
+        return messageDAO.getMessagesByUser();
+    }
 }
+
+/**public List<Message> getMessagesByUser(int messageByUser) {
+        return messageDAO.getMessagesByUser(messageByUser);
+    }
+    */
