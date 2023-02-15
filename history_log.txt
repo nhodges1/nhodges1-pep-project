@@ -1,7 +1,7 @@
-commit 765e8a84c74f8a8e2a3662effbf1e9e6df394317
+commit 696d6dd2aa38a56dbec0ca9545cf99f58f6dc40b
 Author: nhodges1 <hodges27@outlook.com>
-Date:   Wed Feb 15 07:05:37 2023 +0000
+Date:   Wed Feb 15 08:28:26 2023 +0000
 
-    updated messageService
+    getMessageByUser
 
- 6 files changed, 98 insertions(+), 1813 deletions(-)
+ 5 files changed, 82 insertions(+), 178 deletions(-)

@@ -129,15 +129,8 @@ public class SocialMediaController {
 
     /** Get all messages by user id handler */
     private void getAllMessagesByUserHandler(Context ctx) throws JsonProcessingException{
-        ctx.json(messageService.getMessagesByUser());
-        ctx.status(200);
+        int posted_by = Integer.parseInt(ctx.pathParam("account_id"));
+        List<Message> messages = messageService.getMessagesByUser(posted_by);
+        ctx.json(messages);
     }
 }
-
-/** private void getAllMessagesByUserHandler(Context ctx) throws JsonProcessingException{
-    int messageByUser = Integer.parseInt(ctx.pathParam("posted_by"));
-    List<Message> messages = messageService.getMessagesByUser(messageByUser);
-    ctx.json(messages);
-    ctx.status(200);
-}
-*/
