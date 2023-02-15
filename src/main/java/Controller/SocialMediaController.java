@@ -105,9 +105,14 @@ public class SocialMediaController {
     }
 
     /** Delete message by id handler */
-    private void deleteMessageByIdHandler(Context ctx, int id){
-        ctx.status(200);
-        
+    private void deleteMessageByIdHandler(Context ctx) throws JsonProcessingException{
+        int message_id = Integer.parseInt(ctx.pathParam("message_id"));
+        Message message = messageService.deleteById(message_id);
+        if(message!= null){
+            ctx.json(message);
+        }else{
+            ctx.status(200);
+        }
     }
     
     private void exampleHandler(Context context) {
