@@ -116,16 +116,15 @@ public class SocialMediaController {
     
     /** Update message by id handler */
     private void patchMessageByIdHandler(Context ctx) throws JsonProcessingException{
-        ObjectMapper om = new ObjectMapper();
-        Message message = om.readValue(ctx.body(), Message.class);
+        ObjectMapper mapper = new ObjectMapper();
+        Message message = mapper.readValue(ctx.body(), Message.class);
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
         Message updatedMessage = messageService.updatedMessageById(message_id, message);
-        System.out.println(updatedMessage);
-        if(updatedMessage != null){
-            ctx.status(200);
-            ctx.json(om.writeValueAsString(updatedMessage));
+        if(updatedMessage == null || updatedMessage.message_text.isBlank()){
+            ctx.status(400);
+        }else {
+            ctx.json(updatedMessage);
         }
-        ctx.status(400);
     }
 
     /** Get all messages by user id handler */

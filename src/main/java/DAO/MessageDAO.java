@@ -15,6 +15,7 @@ import java.util.List;
 
 public class MessageDAO {
     
+    // Add a new message DAO
     public Message insertMessage(Message message){
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -37,6 +38,7 @@ public class MessageDAO {
         return null;
     }
 
+    // Get all messages DAO
     public List<Message> getAllMessages() {
         Connection connection = ConnectionUtil.getConnection();
         List<Message> messages = new ArrayList<>();
@@ -57,6 +59,7 @@ public class MessageDAO {
         return messages;
     }
 
+    // Get message by id DAO
     public Message getMessageById(int message_id){
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -80,6 +83,7 @@ public class MessageDAO {
         return null;
     }
 
+    // Delete message by id DAO
     public Message deleteMessageById(int message_id) {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -96,6 +100,7 @@ public class MessageDAO {
         return null;
     }
 
+    // Updated a message by id DAO
     public Message updatedMessage(int message_id, Message message) {
         Connection connection = ConnectionUtil.getConnection();
         try {

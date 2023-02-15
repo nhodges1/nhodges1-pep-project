@@ -11,6 +11,7 @@ import java.sql.Statement;
 
 public class AccountDAO {
     
+    // Add a new account DAO
     public Account insertAccount(Account account){
         Connection connection = ConnectionUtil.getConnection();
         try{
@@ -33,6 +34,7 @@ public class AccountDAO {
         return null;
     }
 
+    // Login into existing account DAO
     public Account viewAccount(String username, String password){
         Connection connection = ConnectionUtil.getConnection();
         try{

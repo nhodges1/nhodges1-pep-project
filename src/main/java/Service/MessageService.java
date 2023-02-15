@@ -17,14 +17,20 @@ public class MessageService {
         this.messageDAO = messageDAO;
     }
 
+    // Add a new Message service
     public Message addMessage(Message message){
+        if(message.getMessage_text() != "" && message.getMessage_text().length() <= 255){
         return messageDAO.insertMessage(message);
+        }
+        return null;
     }
 
+    // Get all messages service
     public List<Message> getAllMessages() {
         return messageDAO.getAllMessages();
     }
 
+    // get message by id service
     public Message getMessageById(int message_id) {
         Message message = messageDAO.getMessageById(message_id);
         if(messageDAO.getMessageById(message_id) != null){
@@ -33,6 +39,7 @@ public class MessageService {
         return message;
     }
 
+    // delete message by id service
     public Message deleteById(int message_id) {
         Message message = messageDAO.getMessageById(message_id);
         messageDAO.deleteMessageById(message_id);
@@ -42,6 +49,7 @@ public class MessageService {
         return message;
     }
 
+    // update message by id service
     public Message updatedMessageById(int message_id, Message message) {
         if(message.getMessage_text() != "" && message.getMessage_text().length() <= 255){
             return messageDAO.updatedMessage(message_id, message);
