@@ -21,6 +21,7 @@ public class AccountDAO {
             preparedStatement.setString(2, account.getPassword());
 
             preparedStatement.executeUpdate();
+
             ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
             if(pkeyResultSet.next()){
                 int generated_account_id = (int) pkeyResultSet.getLong(1);
@@ -32,23 +33,24 @@ public class AccountDAO {
         return null;
     }
 
-    public Account viewAccount(Account account){
+    public Account viewAccount(String username, String password){
         Connection connection = ConnectionUtil.getConnection();
         try{
             String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1, account.getUsername());
-            preparedStatement.setString(2, account.getPassword());
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
 
-            preparedStatement.executeUpdate();
-            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
-            if(pkeyResultSet.next()){
-                int generated_account_id = (int) pkeyResultSet.getLong(1);
-                return new Account(generated_account_id, account.getUsername(), account.getPassword());
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                Account account = new Account(rs.getInt("account_id"), 
+                rs.getString("username"), 
+                rs.getString("password"));
+                return account;
             }
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }

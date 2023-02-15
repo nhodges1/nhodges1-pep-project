@@ -55,11 +55,11 @@ public class SocialMediaController {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
         Account addedAccount = accountService.addAccount(account);
-        if(addedAccount==null){
-            ctx.status(400);
-        }else{
+        if(addedAccount != null){
             ctx.json(mapper.writeValueAsString(addedAccount));
             ctx.status(200);
+        }else{
+            ctx.status(400);
         }
     }
 
@@ -68,12 +68,13 @@ public class SocialMediaController {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
         
-        Account loginAccount = accountService.existingAccount(account);
-        if(loginAccount==null){
-            ctx.status(400);
-        }else{
+        Account loginAccount = accountService.existingAccount(account.getUsername(), account.getPassword());
+        System.out.println(loginAccount);
+        if(loginAccount != null){
             ctx.json(mapper.writeValueAsString(loginAccount));
             ctx.status(200);
+        }else{
+            ctx.status(400);
         }
     }
 
@@ -99,14 +100,13 @@ public class SocialMediaController {
     }
 
     /** Get message by id handler */
-    private void getMessageByIdHandler(Context ctx) throws JsonProcessingException{
-        ObjectMapper mapper = new ObjectMapper();
+    private void getMessageByIdHandler(Context ctx){
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
-        int account_id = Integer.parseInt(ctx.pathParam("account_id"));
-        Message message = messageService.getMessageById(message_id, account_id);
-        if(message != null){
+        System.out.println(message_id + "getMessageById");
+        if(messageService.getMessageById(message_id) == null){
             ctx.status(200);
-            ctx.json(mapper.writeValueAsString(message_id));
+        }else{
+            ctx.json(messageService.getMessageById(message_id));
         }
     }
 

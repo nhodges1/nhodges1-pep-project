@@ -17,12 +17,15 @@ public class AccountService {
 
     // new registration
     public Account addAccount(Account account) {
+        if(account.username != "" && account.password.length() >= 4){
         return accountDAO.insertAccount(account);
+        }
+        return null;
     }
 
     // login with existing account
-    public Account existingAccount(Account account) {
-        return accountDAO.viewAccount(account);
+    public Account existingAccount(String username, String password) {
+        return accountDAO.viewAccount(username, password);
     }
     
 }
