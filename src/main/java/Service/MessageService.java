@@ -25,6 +25,14 @@ public class MessageService {
         return messageDAO.getAllMessages();
     }
 
+    public Message getMessageById(int message_id, int account_id) {
+        Message message = messageDAO.getMessageById(message_id);
+        if(messageDAO.getMessageById(message_id) != null){
+            return messageDAO.getMessageById(message_id);
+        }
+        return message;
+    }
+
     public Message deleteById(int message_id) {
         Message message = messageDAO.getMessageById(message_id);
         messageDAO.deleteMessageById(message_id);
