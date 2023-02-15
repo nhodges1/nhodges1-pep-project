@@ -45,11 +45,6 @@ public class SocialMediaController {
         return app;
     }
 
-    /**
-     * This is an example handler for an example endpoint.
-     * @param context The Javalin Context object manages information about both the HTTP request and response.
-     */
-
     /** Register a new account handler */
     private void postRegisterHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -74,7 +69,7 @@ public class SocialMediaController {
             ctx.json(mapper.writeValueAsString(loginAccount));
             ctx.status(200);
         }else{
-            ctx.status(400);
+            ctx.status(401);
         }
     }
 
@@ -84,7 +79,7 @@ public class SocialMediaController {
         Message message = mapper.readValue(ctx.body(), Message.class);
         
         Message newMessage = messageService.addMessage(message);
-        if(newMessage==null){
+        if(newMessage != null){
             ctx.json(mapper.writeValueAsString(newMessage));
             ctx.status(200);
         }else{
@@ -93,7 +88,7 @@ public class SocialMediaController {
     }
 
     /** Get all messages handler */
-    private void getAllMessagesHandler(Context ctx){
+    private void getAllMessagesHandler(Context ctx) throws JsonProcessingException{
         List<Message> messages = messageService.getAllMessages();
         ctx.json(messages);
         ctx.status(200);
@@ -102,11 +97,9 @@ public class SocialMediaController {
     /** Get message by id handler */
     private void getMessageByIdHandler(Context ctx){
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
-        System.out.println(message_id + "getMessageById");
-        if(messageService.getMessageById(message_id) == null){
-            ctx.status(200);
-        }else{
-            ctx.json(messageService.getMessageById(message_id));
+        Message retrieveMessage = messageService.getMessageById(message_id);
+        if(retrieveMessage != null){
+            ctx.json(retrieveMessage);
         }
     }
 
@@ -121,6 +114,7 @@ public class SocialMediaController {
         }
     }
     
+    /** Update message by id handler */
     private void patchMessageByIdHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         Message message = om.readValue(ctx.body(), Message.class);
@@ -134,6 +128,7 @@ public class SocialMediaController {
         ctx.status(400);
     }
 
+    /** Get all messages by user id handler */
     private void getAllMessagesByUserHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         Account user_id = om.readValue(ctx.body(), Account.class);
