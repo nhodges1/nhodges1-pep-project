@@ -42,7 +42,10 @@ public class MessageService {
         return message;
     }
 
-    // public Message getMessagesById(int id) {
-        // return messageDAO.getMessageById(id);
-    // }
+    public Message updatedMessageById(int message_id, Message message) {
+        if(message.getMessage_text() != "" && message.getMessage_text().length() <= 255){
+            return messageDAO.updatedMessage(message_id, message);
+        }
+        return null;
+    }
 }

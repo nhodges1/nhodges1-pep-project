@@ -1,7 +1,7 @@
-commit 2fcc604f78fcd757de87ac2226bf88b4b91854da
+commit 3b079f837dfef14b1c7379a9b9587f0778c86429
 Author: nhodges1 <hodges27@outlook.com>
-Date:   Wed Feb 15 01:06:37 2023 +0000
+Date:   Wed Feb 15 02:21:10 2023 +0000
 
-    getMessageById updated
+    updated viewAccount handler and service
 
- 4 files changed, 282 insertions(+), 1901 deletions(-)
+ 6 files changed, 59 insertions(+), 54 deletions(-)
